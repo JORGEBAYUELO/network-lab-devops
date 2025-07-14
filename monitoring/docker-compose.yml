@@ -1,0 +1,32 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+        
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  node_exporter:
+    image: prom/node-exporter
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
+    restart: unless-stopped
+
+  pihole-exporter:
+    image: ekofr/pihole-exporter:latest
+    container_name: pihole_exporter
+    ports:
+      - "9617:9617"
+    restart: unless-stopped
+    environment:
+      - PIHOLE_HOSTNAME=http://192.168.1.10:80
+      - PIHOLE_PASSWORD=${WEBPASSWORD}
