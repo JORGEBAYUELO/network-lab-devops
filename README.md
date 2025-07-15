@@ -1,5 +1,7 @@
 # DevOps Network Lab (Raspberry Pi 5)
 
+![Cover Image](./cover/cover.jpg)
+
 This project sets up a secure, self-hosted infrastructure stack using Raspberry Pi 5, including DNS-level filtering, DHCP services, secure remote access (VPN), and monitoring.
 
 ## Components:
