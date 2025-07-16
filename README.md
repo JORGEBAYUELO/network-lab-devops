@@ -103,7 +103,7 @@ sudo raspi-config # enable SSH and set hostname
 ### Overview
 
 | **Component** | **Role** |
-| ------------- | -------- |
+| :------------ | :------- |
 | Pi-hole       | DNS server with ad-blocking + DHCP support |
 | dnsmasq       | Lightweight DHCP server (bundle with Pi-hole) |
 | Unbound       | Recursive DNS resolver for privacy |
