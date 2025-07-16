@@ -41,12 +41,33 @@ This DevOps-oriented network lab was designed using a **Raspberry Pi 5** as a co
 
 - SSH tunneling for secure remote browsing
 
-## Components:
+## Architecture:
 
-- Pi-hole (DNS + Ad-blocking)
-- Dnsmasq (DHCP)
-- Unbound (Recursive DNS Resolver)
-- WireGuard (VPN)
-- Prometheus + Grafana (Monitoring)
+The network lab architecture is composed of:
 
-> Built as part of a DevOps lab environment to simulate real-world infrastructure with automation, observability, and security in mind.
+- Raspberry Pi 5 running Pi OS (GUI, SSH, and VNC enabled)
+
+- Dockerized stack including Prometheus, Grafana, and Node Exporter
+
+- WireGuard VPN server
+
+- Pi-hole DNS server
+
+- Clients: Desktop PC, iPhone, laptop
+
+## Technologies Used
+
+- Raspberry Pi OS (Debian-based)
+
+- Docker & Docker Compose
+
+- Prometheus
+
+- Grafana
+
+- Pi-hole
+
+- WireGuard
+
+- iptables
+
