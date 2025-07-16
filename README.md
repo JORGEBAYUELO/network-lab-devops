@@ -91,3 +91,19 @@ network-lab-devops/
 ## Setup Instructions
 
 ### Step 1: Raspberry Pi Setup
+
+```bash
+# Flash Pi OS to SD card
+# Enable SSH
+sudo raspi-config # enable SSH and set hostname
+```
+
+### Step 2: Setup of DNS (Pi-hole + Unbound) + DHCP on Raspberry Pi 5
+
+### Overview
+
+| **Component** | **Role** |
+| ------------- | -------- |
+| Pi-hole       | DNS server with ad-blocking + DHCP support |
+| dnsmasq       | Lightweight DHCP server (bundle with Pi-hole) |
+| Unbound       | Recursive DNS resolver for privacy |
