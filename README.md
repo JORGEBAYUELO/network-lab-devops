@@ -71,3 +71,23 @@ The network lab architecture is composed of:
 
 - iptables
 
+## Folder Structure
+
+```ascii
+network-lab-devops/
+├─ configs/
+│  ├─ unbound/
+│  │  ├─ pi-hole.conf
+├─ diagrams/
+│  ├─ pi-hole-admin-panel.jpg
+│  ├─ grafana.jpg
+│  ├─ prometheus.jpg
+├─ monitoring/
+│  ├─ docker-compose.yml
+│  ├─ prometheus.yml
+├─ README.md
+```
+
+## Setup Instructions
+
+### Step 1: Raspberry Pi Setup
