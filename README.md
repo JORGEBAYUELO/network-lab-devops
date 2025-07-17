@@ -195,10 +195,112 @@ http://<your-pi-ip>/admin
 
 3. Set:
 
-    - Range: `192.168.1.100 - 192.168.1.150` (This is an example, you have to make sure this IP pool range does not overlap with your Router DHCP Pool IP address range)
+    - Range: `192.168.1.100 - 192.168.1.150` (This is an example, you have to make sure this IP pool range does not overlap with your Router's DHCP Pool IP address range)
 
     - Router (gateway): `192.168.1.1` (Make sure you put your router's IP here)
 
 4. Save
 
 ![Pi-hole DHCP Settings](./diagrams/dhcp-config.png)
+
+### Step 2.3: Install and Configure Unbound (Recursive DNS)
+
+### Install Unbound:
+
+```bash
+sudo apt update
+sudo apt install unbound -y
+```
+
+### Create Pi-hole Unbound Config
+
+Create the Unbound config directory if it doesn't exits:
+
+```bash
+sudo mkdir -p /etc/unbound/unbound.conf.d/
+```
+
+Then create the config file:
+
+```bash
+sudo vim /etc/unbound/unbound.conf.d/pi-hole.conf
+```
+
+Paste the following config:
+
+```conf
+server:
+    verbosity: 0
+    interface: 127.0.0.1
+    port: 5335
+
+    do-ip4: yes
+    do-udp: yes
+    do-tcp: yes
+
+    root-hints: "/var/lib/unbound/root.hints"
+    hide-identity: yes
+    hide-version: yes
+    harden-glue: yes
+    harden-dnssec-stripped: yes
+    use-caps-for-id: yes
+    edns-buffer-size: 1232
+    prefetch: yes
+    qname-minimisation: yes
+    rrset-roundrobin: yes
+```
+
+### Fetch the Latest Root DNS Hints File
+
+This is the list of authoritative root DNS servers:
+
+```bash
+curl -o /var/lib/unbound/root.hints https://www.internic.net/domain/named.cache
+```
+
+### Restart & Enable Unbound
+
+```bash
+sudo systemctl restart unbound
+sudo systemctl enable unbound
+```
+
+### Test Unbound Directly
+
+```bash
+dig pi-hole.net @127.0.0.1 -p 5335
+```
+
+You should get a valid response and it should not mention Cloudflare or Google (meaning it's Unbound).
+
+### Step 2.4: Configure Pi-hole to Use Unbound
+
+1. Go to: `Pi-hole Admin Panel -> Settings -> DNS`
+
+2. **Uncheck** all upstream DNS providers
+
+3. In **Custom 1 (IPv4)** add:
+
+```bash
+127.0.0.1#5335
+```
+
+4. Save
+
+![DNS setting 01](./diagrams/dns-setting-01.png)
+
+![DNS setting 02](./diagrams/dns-setting-02.png)
+
+Now all DNS queries go:
+
+> Device -> Pi-hole -> Unbound -> Root DNS servers
+No 3rd party (like Cloudflare or Google) is involved anymore.
+
+### Step 2.5: Flush DNS Cache
+
+To make changes take effect cleanly:
+
+```bash
+pihole restartdns
+```
+
