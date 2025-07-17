@@ -374,6 +374,20 @@ Replace:
 
 Save and exit.
 
+### Set Correct Permissions
+
+WireGuard requires the config file to be readable only by root:
+
+```bash
+sudo chmod 600 /etc/wireguard/wg0.conf
+```
+
+### Install `resolvconf`
+
+```bash
+sudo apt install resolvconf -y
+```
+
 ### Step 3.3: Start WireGuard
 
 ```bash
