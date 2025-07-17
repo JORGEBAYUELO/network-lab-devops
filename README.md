@@ -200,3 +200,5 @@ http://<your-pi-ip>/admin
     - Router (gateway): `192.168.1.1` (Make sure you put your router's IP here)
 
 4. Save
+
+![Pi-hole DHCP Settings](./diagrams/dhcp-config.png)
