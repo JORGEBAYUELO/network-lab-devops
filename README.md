@@ -304,3 +304,33 @@ To make changes take effect cleanly:
 pihole restartdns
 ```
 
+### Step 3: Install WireGuard on the Pi
+
+SSH into your Pi:
+
+```bash
+sudo apt update
+sudo apt install wireguard -y
+```
+
+Enable IP forwarding:
+
+```bash
+sudo vim /etc/sysctl.conf
+```
+
+Uncomment or add:
+
+```conf
+net.ipv4.ip_forward=1 
+```
+
+Then apply it:
+
+```bash
+sudo sysctl -p
+```
+
+### Step 3.1: Generate WireGuard Keys
+
+
