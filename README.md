@@ -333,4 +333,56 @@ sudo sysctl -p
 
 ### Step 3.1: Generate WireGuard Keys
 
+```bash
+cd /etc/wireguard
+sudo umask 077
+sudo wg genkey  | sudo tee privatekey | sudo wg pubkey > publickey
+```
 
+```bash
+sudo cat privatekey
+sudo cat publickey
+```
+
+> Make sure to save these values, you will use them to build the config file
+
+### Step 3.2: Create the WireGuard Server Config
+
+```bash
+sudo vim /etc/wireguard/wg0.conf
+```
+
+Paste the following configuration in the wg0.conf file:
+
+```ini
+[Interface]
+PrivateKey = <PI_PRIVATE_KEY>
+Address = 10.8.0.1/24
+ListenPort = 51820
+DNS = 192.168.1.10
+
+PostUp = iptables -A FORWARD -i %i -j ACCEPT; iptables -A FORWARD -o %i -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -D FORWARD -o %i -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
+```
+
+Replace:
+
+- `<PI_PRIVATE_KEY>` with the output from `sudo cat /etc/wireguard/privatekey`
+
+- `eth0` if needed with `wlan0` if you're using Wi-Fi
+
+Save and exit.
+
+### Step 3.3: Start WireGuard
+
+```bash
+sudo systemctl start wg-quick@wg0
+sudo systemctl enable wg-quick@wg0
+```
+
+Check Status:
+
+```bash
+sudo wg 
+```
