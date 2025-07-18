@@ -514,4 +514,101 @@ Steps:
 
 ### Step 4.1: Write the `docker-compose.yml` file
 
+```yaml
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"         # Correct port for Prometheus
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  node_exporter:
+    image: prom/node-exporter
+    container_name: node_exporter
+    ports:
+      - "9100:9100"         # Correct port for node_exporter
+    restart: unless-stopped
+
+
+  pihole-exporter:
+    image: ekofr/pihole-exporter:latest
+    container_name: pihole_exporter
+    restart: unless-stopped
+    ports:
+      - "9617:9617"        # Correct port for pihole-exporter
+    environment:
+      - PIHOLE_HOSTNAME=http://192.168.1.10:80
+      - PIHOLE_PASSWORD=6q3AUQfr
+```
+
+### Step 4.2: Create `promethus.yml`
+
+This will collect metrics from:
+
+- **node_exporter** (basic Pi stats)
+
+- **Pi-hole exporter**
+
+```yaml
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'node'
+    static_configs:
+      - targets: ['node_exporter:9100']
+
+  - job_name: 'pihole'
+    static_configs:
+      - targets: ['pihole_exporter:9617']
+```
+
+### Step 4.3: Install `node_exporter` on the Pi
+
+```bash
+sudo apt update
+sudo apt install -y prometheus-node-exporter
+sudo systemctl enable prometheus-node-exporter
+sudo systemctl start prometheus-node-exporter
+```
+
+Verify that it's running:
+
+```bash
+systemctl status prometheus-node-exporter
+```
+
+> Make sure it's listening on port `9100`
+
+```bash
+curl http://localhost:9100/metrics
+```
+
+### Step 4.4: Launch Everything
+
+Navigate to the `monitoring/` directory and run:
+
+```bash
+docker-compose up -d
+```
+
+Then go to:
+
+- `http://<your-pi-ip>:3000`
+
+- Login: admin / admin -> Set a new password
+
+![Grafana Dashboard](./diagrams/grafana-admin-dashboard.png)
+
+- `http://<your-pi-ip>:9090`
+
+- Access to Prometheus dashboard
