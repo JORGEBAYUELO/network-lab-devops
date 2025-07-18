@@ -659,8 +659,6 @@ Instead of creating one from scratch, let's import a ready-made dashboard:
 
 4. Go to Dashboards -> Click New -> Select Import 
 
-![Grafana dashboards](./diagrams/importing-dashboard.png)
-
 5. Use Dashboard ID `1860` (Node Exporter Full) and click on `Load`
 
 6. In the prometheus field click the dropdown and select the Prometheus data source we configured previously
