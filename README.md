@@ -304,6 +304,8 @@ To make changes take effect cleanly:
 pihole restartdns
 ```
 
+![Pi-hole Admin Pannel](./diagrams/pi-hole-metrics.png)
+
 ## Step 3: Install WireGuard on the Pi
 
 SSH into your Pi:
