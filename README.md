@@ -671,6 +671,8 @@ Instead of creating one from scratch, let's import a ready-made dashboard:
 
 7. Click Import 
 
+**Grafana Dashboard Screenshot**
+
 ![Grafana showing metrics](./diagrams/grafana-metrics.png)
 
 You can now monitor:
@@ -682,5 +684,3 @@ You can now monitor:
 - Network interfaces
 
 - Uptime and system services
-
-![Grafana showing metrics](./diagrams/grafana-metrics.png)
