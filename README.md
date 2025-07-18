@@ -187,6 +187,8 @@ Access via browser:
 http://<your-pi-ip>/admin
 ```
 
+![Pi-hole Admin Pannel](./diagrams/pi-hole-metrics.png)
+
 ### Enable DHCP
 
 1. Go to: **Settings -> DHCP**
@@ -303,8 +305,6 @@ To make changes take effect cleanly:
 ```bash
 pihole restartdns
 ```
-
-![Pi-hole Admin Pannel](./diagrams/pi-hole-metrics.png)
 
 ## Step 3: Install WireGuard on the Pi
 
@@ -686,3 +686,36 @@ You can now monitor:
 - Network interfaces
 
 - Uptime and system services
+
+## Challenges & Fixes
+
+| **Issue** | **Resolution** |
+| :-------- | :------------- |
+| WireGuard `wg0` failed to start | Missing resolvconf installation |
+| VPN not routing public traffic | Likely NAT/ISP limitation, unable to port forward effectively |
+| Pi became unreachable after IP passthrough | Reverted setup |
+| Node Exporter port in use | Found rogue process with `lsof -i :9100` and killed it |
+| Prometheus not scraping data | Missing space in `- targets:` key in YAML |
+
+## Lessons Learned
+
+- WireGuard is powerful but requeries careful NAT configuration
+
+- Docker Compose simplifies stack management significantly
+
+- Prometheus and Grafana together give excellent visibility
+
+- SSH tunnel proxying is a very viable backup to full VPN
+
+- iptables rules must be crafted carefully to avoid network issues
+
+## Improvements
+
+- Implement full DNS hijack to make Pi-hole transparent to LAN
+
+- Experiment with Tailscale for easier VPN overlay
+
+## 📫 Contact
+
+This project was developed by [Jorge Bayuelo](https://github.com/JORGEBAYUELO)
+Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/jorge-bayuelo/)!
