@@ -90,7 +90,7 @@ network-lab-devops/
 
 ## Setup Instructions
 
-### Step 1: Raspberry Pi Setup
+## Step 1: Raspberry Pi Setup
 
 ```bash
 # Flash Pi OS to SD card
@@ -98,7 +98,7 @@ network-lab-devops/
 sudo raspi-config # enable SSH and set hostname
 ```
 
-### Step 2: Setup of DNS (Pi-hole + Unbound) + DHCP on Raspberry Pi 5
+## Step 2: Setup of DNS (Pi-hole + Unbound) + DHCP on Raspberry Pi 5
 
 ### Overview
 
@@ -304,7 +304,7 @@ To make changes take effect cleanly:
 pihole restartdns
 ```
 
-### Step 3: Install WireGuard on the Pi
+## Step 3: Install WireGuard on the Pi
 
 SSH into your Pi:
 
@@ -497,3 +497,21 @@ qrencode -t ansiutf8 < iphone.conf
 - You **must set up port forwarding** on your router to forward `UDP` port **51820** to the **Raspberry Pi's local IP** (e.g., 192.168.1.X).
 
 - Without this, external clients cannot reach your Pi through the firewall/router.
+
+## Step 4: Install Monitoring (Prometheus + Grafana)
+
+Steps:
+
+1. Install Prometheus + Grafana (via Docker)
+
+2. Monitor:
+
+    - Pi-hole DNS stats
+
+    - System metrics (CPU, RAM, network)
+
+3. Build dashboards in Grafana
+
+### Step 4.1: Write the `docker-compose.yml` file
+
+
