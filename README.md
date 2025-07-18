@@ -491,3 +491,9 @@ qrencode -t ansiutf8 < iphone.conf
 - Visit a website (should route through Pi-hole. check logs)
 
 - Visit `http://pi.hole/admin` from iPhone (VPN should route it)
+
+### Important:
+
+- You **must set up port forwarding** on your router to forward `UDP` port **51820** to the **Raspberry Pi's local IP** (e.g., 192.168.1.X).
+
+- Without this, external clients cannot reach your Pi through the firewall/router.
