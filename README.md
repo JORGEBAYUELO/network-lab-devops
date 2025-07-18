@@ -718,4 +718,5 @@ You can now monitor:
 ## 📫 Contact
 
 This project was developed by [Jorge Bayuelo](https://github.com/JORGEBAYUELO)
+
 Feel free to connect with me on [LinkedIn](https://www.linkedin.com/in/jorge-bayuelo/)!
