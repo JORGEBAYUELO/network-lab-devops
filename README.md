@@ -612,3 +612,29 @@ Then go to:
 - `http://<your-pi-ip>:9090`
 
 - Access to Prometheus dashboard
+
+![Prometheus Dashboard](./diagrams/prometheus-dashboard.png)
+
+**Confirm in Prometheus:**
+
+Go to `http://<pi-ip>:9090` and search the following metrics:
+
+- `node_cpu_seconds_total`
+
+- `node_memory_MemAvailable_bytes`
+
+- `node_filesystem_avail_bytes`
+
+- `node_temperature_sensor`
+
+You should be able to get values, this means it's working!
+
+![Prometheus with values](./diagrams/prometheus-values.png)
+
+Also go to `Status tab -> Targets` you should be able to see the status of `node_exporter` and `pihole` endpoints **UP**:
+
+![Prometheus endpoint status](./diagrams/prometheus-endpoints.png)
+
+### Step 4.5: Add a Grafana Dashboard
+
+Instead of creating one from scratch, let's import a ready-made dashboard:
