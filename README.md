@@ -638,3 +638,49 @@ Also go to `Status tab -> Targets` you should be able to see the status of `node
 ### Step 4.5: Add a Grafana Dashboard
 
 Instead of creating one from scratch, let's import a ready-made dashboard:
+
+1. Go to Graphana -> Data sources -> Add new data source
+
+![Datasource Panel](./diagrams/datasource.png)
+
+2. Select the Prometheus data source
+
+    - **Name:** `Prometheus`
+
+    - **Connection:** `http://prometheus:9090`
+
+![Prometheus Datasource](./diagrams/prometheus-source.png)
+
+![Prometheus datasource configuration](./diagrams/datasource-conf.png)
+
+3. Click Save & test
+
+![Save](./diagrams/save.png)
+
+4. Go to Dashboards -> Click New -> Select Import 
+
+![Grafana dashboards](./diagrams/importing-dashboard.png)
+
+5. Use Dashboard ID `1860` (Node Exporter Full) and click on `Load`
+
+6. In the prometheus field click the dropdown and select the Prometheus data source we configured previously
+
+![Importing dashboards](./diagrams/import-setting-id.png)
+
+![Setting up dashboards](./diagrams/setting-dashboard.png)
+
+7. Click Import 
+
+![Grafana showing metrics](./diagrams/grafana-metrics.png)
+
+You can now monitor:
+
+- CPU/Load averages
+
+- RAM and disk usage
+
+- Network interfaces
+
+- Uptime and system services
+
+![Grafana showing metrics](./diagrams/grafana-metrics.png)
