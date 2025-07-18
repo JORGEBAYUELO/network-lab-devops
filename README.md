@@ -663,9 +663,9 @@ Instead of creating one from scratch, let's import a ready-made dashboard:
 
 5. Use Dashboard ID `1860` (Node Exporter Full) and click on `Load`
 
-6. In the prometheus field click the dropdown and select the Prometheus data source we configured previously
-
 ![Importing dashboards](./diagrams/import-setting-id.png)
+
+6. In the prometheus field click the dropdown and select the Prometheus data source we configured previously
 
 ![Setting up dashboards](./diagrams/setting-dashboard.png)
 
