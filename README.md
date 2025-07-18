@@ -400,3 +400,94 @@ Check Status:
 ```bash
 sudo wg 
 ```
+
+### Step 3.4: Set Up iPhone WireGuard Client
+
+Now let's create a configuration you can use to connect your iPhone securely into this network.
+
+### Generate iPhone Keys on the Pi
+
+```bash
+cd /etc/wireguard
+umask 077
+wg genkey | tee iphone_privatekey | wg pubkey > iphone_publickey
+```
+
+Now check the keys:
+
+```bash
+cat iphone_privatekey
+cat iphone_publickey
+```
+
+### Add iPhone to Server (`wg0.conf`)
+
+Open the server config:
+
+```bash
+sudo vim /etc/wireguard/wg0.conf
+```
+
+### Add the following to the bottom of wg0.conf file:
+
+```ini
+[Peer]
+PublicKey = <IPHONE_PUBLIC_KEY>
+AllowedIPs = 10.8.0.2/32
+```
+
+Replace `<IPHONE_PUBLIC_KEY>` with the key from the previous step.
+
+Save and exit.
+
+Restart service:
+
+```bash
+sudo systemctl restart wg-quick@wg0
+```
+
+### Create iPhone Client Config
+
+Use the [WireGuard app](https://apps.apple.com/us/app/wireguard/id1441195209)
+
+This is what you'll import into the **WireGuard IOS app:**
+
+```ini
+[Interface]
+PrivateKey = <IPHONE_PRIVATE_KEY>
+Address = 10.8.0.2/24
+DNS = 192.168.1.10
+
+[Peer]
+PublicKey = <PI_PUBLIC_KEY>
+Endpoint = <YOUR_PUBLIC_IP>:51820
+AllowedIPs = 0.0.0.0/0
+PersistentKeepalive = 25
+```
+
+> Replace:
+    - "`<IPHONE_PRIVATE_KEY>` = the key you just generated"
+    - "`<PI_PUBLIC_KEY>` = server's public key (`sudo cat /etc/wireguard/publickey`)"
+    - "`<YOUR_PUBLIC_IP>` = use your home router's public IP (you can find it at [whatismyipaddress](https://whatismyipaddress.com/))"
+
+### Step 3.5: Generate QR Code for Import 
+
+Install QR generator:
+
+```bash
+sudo apt install qrencode -y
+```
+
+Then:
+
+```bash
+qrencode -t ansiutf8 < iphone.conf
+```
+
+### 3.6: Final Validation
+
+- Connect iPhone via WireGuard
+
+- Visit a website (should route through Pi-hole. check logs)
+
+- Visit `http://pi.hole/admin` from iPhone (VPN should route it)
