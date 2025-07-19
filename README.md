@@ -6,28 +6,27 @@
 
 - [Project Overview](#project-overview)
 
-- [Architecture](#)
+- [Architecture](#architecture)
 
-- [Technologies Used](#)
+- [Technologies Used](#technologies-used)
 
-- [Folder Structure](#)
+- [Folder Structure](#folder-structure)
 
-- [Setup Instructions](#)
+- [Setup Instructions](#setup-instructions)
 
-    - [Step 1: Raspberry Pi Setup](#)
+    - [Step 1: Raspberry Pi Setup](#raspberry-pi-setup)
 
-    - [Step 2: Pi-hole DNS and DHCP](#)
+    - [Step 2: Pi-hole DNS and DHCP](#setup-of-dns-pi-hole-unbound-dhcp-on-raspberry-pi-5)
 
-    - [Step 3: WireGuard VPN](#)
+    - [Step 3: Install WireGuard VPN](#install-wireguard-vpn)
 
-    - [Step 4: SSH Tunnel Proxy](#)
+    - [Step 4: Install Monitoring (Prometheus + Grafana)](#install-monitoring-prometheus-grafana)
 
-    - [Step 5: Monitoring Stack](#)
+- [Challenges & Fixes](#challenges-&-fixes)
 
-- [Challenges & Fixes](#)
-- [Screenshots](#)
-- [Lessons Learned](#)
-- [Future Improvements](#)
+- [Lessons Learned](#lessons-learned)
+
+- [Future Improvements](#future-improvements)
 
 ## Project Overview
 
@@ -306,7 +305,7 @@ To make changes take effect cleanly:
 pihole restartdns
 ```
 
-## Step 3: Install WireGuard on the Pi
+## Step 3: Install WireGuard VPN
 
 SSH into your Pi:
 
@@ -709,7 +708,7 @@ You can now monitor:
 
 - iptables rules must be crafted carefully to avoid network issues
 
-## Improvements
+## Future Improvements
 
 - Implement full DNS hijack to make Pi-hole transparent to LAN
 
